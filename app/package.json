@@ -1,0 +1,28 @@
+{
+  "name": "fastapi-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "@nuxt/eslint": "^0.3.13",
+    "@nuxtjs/tailwindcss": "^6.12.0",
+    "@pinia/nuxt": "^0.5.1",
+    "nuxt": "^3.12.1",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.27",
+    "vue-router": "^4.3.3"
+  },
+  "devDependencies": {
+    "vite-plugin-vuetify": "^2.0.3",
+    "vuetify": "^3.6.9"
+  }
+}

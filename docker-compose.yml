@@ -1,0 +1,73 @@
+services:
+  db:
+    image: postgres:14-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+    volumes:
+      - ./docker/db/sql:/docker-entrypoint-initdb.d
+      - pg-data:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4:snapshot
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=root@db.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    restart: always
+    ports:
+      - "5000:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json
+    depends_on:
+      - "db"
+  service:
+    profiles: ["all", "service", "test"]
+    build:
+      context: ./service
+    restart: always
+    user: "${UID}"
+    environment:
+      - PATH=/home/node/.yarn/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "db"
+    volumes:
+      - ./service:/service
+      - /dev/null:/service/.env
+      - node-data:/home/node
+    command: ash -c 'npm install && npm start'
+  app:
+    profiles: ["all", "app", "test"]
+    build:
+      context: ./app
+    restart: always
+    user: "${UID}"
+    #environment:
+    #  - PATH=/home/node/.yarn/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    ports:
+      - "3001:3000"
+    depends_on:
+      - "service"
+    volumes:
+      - ./app:/app
+      - /dev/null:/service/.env
+      - node-data:/home/node
+    command: ash -c 'npm install && npm run dev -- --public'
+  test:
+    profiles: ["test"]
+    restart: on-failure
+    depends_on:
+      - "app"
+    image: testcafe/testcafe
+    volumes:
+      - ./app/__tests__:/tests
+      - ./app/__tests__/.testcaferc.json:/.testcaferc.json
+    command: ["chromium", "/tests/**/*.js"]
+volumes:
+  pg-data:
+  pgadmin-data:
+  node-data:
