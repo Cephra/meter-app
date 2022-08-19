@@ -1,0 +1,39 @@
+{
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch /service",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/service/dist/index.js",
+      "cwd": "${workspaceRoot}/service",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run Mocha tests",
+      "program": "${workspaceRoot}/service/node_modules/mocha/bin/_mocha",
+      "runtimeArgs": [
+        "-r",
+        "${workspaceRoot}/service/node_modules/source-map-support/register"
+      ],
+      "cwd": "${workspaceRoot}/service",
+      "autoAttachChildProcesses": true,
+      "args": [
+        "--config",
+        "${workspaceRoot}/service/.mocharc.json",
+        "${workspaceRoot}/service/dist/__tests__/**/*.js",
+        "-t",
+        "0"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach to Process",
+      "port": 5858
+    }
+  ]
+}
