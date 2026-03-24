@@ -1,0 +1,46 @@
+{
+  "name": "meter-app",
+  "version": "1.0.0",
+  "description": "MeterApp is a meter data management system with PostgreSQL, a NestJS service, and a Vue + Vite frontend.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "docker:up": "bash ./bin/init.sh",
+    "dev:service": "bash -lc 'set -a; source envs/service.local.env; set +a; cd packages/service-v2 && npm run start:dev'",
+    "dev:web": "npm run dev --workspace @meter-app/web -- --host 0.0.0.0 --port 5173",
+    "openapi": "npm run openapi:write --workspace @meter-app/service-v2 && npm run generate:types --workspace @meter-app/shared-api"
+  },
+  "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-vue": "^10.5.1",
+    "globals": "^16.4.0",
+    "typescript-eslint": "^8.46.2",
+    "vue-eslint-parser": "^10.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cephra/meter-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cephra/meter-app/issues"
+  },
+  "homepage": "https://github.com/Cephra/meter-app#readme",
+  "workspaces": [
+    "packages/*"
+  ]
+}

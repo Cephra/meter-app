@@ -1,0 +1,57 @@
+{
+  "name": "@meter-app/service-v2",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Meter app service v2 built with NestJS, Fastify, Prisma and Swagger",
+  "scripts": {
+    "build": "nest build",
+    "start": "node dist/main.js",
+    "start:dev": "nest start --watch",
+    "start:prod": "node dist/main.js",
+    "lint": "eslint \"src/**/*.ts\" \"scripts/**/*.ts\"",
+    "test": "vitest run",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate:dev": "prisma migrate dev",
+    "prisma:migrate:deploy": "prisma migrate deploy",
+    "openapi:write": "ts-node --project tsconfig.json scripts/write-openapi.ts",
+    "preopenapi:write": "npm run prisma:generate"
+  },
+  "dependencies": {
+    "@fastify/cors": "^11.2.0",
+    "@nestjs/common": "^11.1.8",
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/core": "^11.1.8",
+    "@nestjs/platform-fastify": "^11.1.8",
+    "@nestjs/swagger": "^11.2.1",
+    "@prisma/adapter-pg": "^7.5.0",
+    "@prisma/client": "^7.5.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "dotenv": "^17.2.3",
+    "pg": "^8.16.3",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "swagger-ui-dist": "^5.27.0",
+    "@fastify/static": "^9.0.0"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.10",
+    "@nestjs/schematics": "^11.0.6",
+    "@nestjs/testing": "^11.1.8",
+    "@types/node": "^25.4.0",
+    "@vitest/coverage-v8": "^4.0.3",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "prettier": "^3.6.2",
+    "prisma": "^7.5.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.44.1",
+    "vitest": "^4.0.3",
+    "ts-node": "^10.9.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
